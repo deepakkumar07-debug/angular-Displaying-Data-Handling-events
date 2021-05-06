@@ -6,3 +6,14 @@
         <td [attr.colspan]="colSpan">welcome</td>
     </tr>
 </table>
+<button class="btn btn-danger" [class.active]='isActive'>Active Danger</button>
+<button [style.backgroundColor]="isActive ? 'yellow':'green'">style</button>
+
+<div (click)="onDivClicked($event)">
+    <button (click)="onSave($event)" class="btn btn-secondary">Event trigger</button>
+</div>
+
+<br>
+type :<input type="text" (keyup.enter)="onKeyUp($event)"/>
+
+email :<input type="email" #email (keyup.enter)="onEmailChange(email.value)"/>

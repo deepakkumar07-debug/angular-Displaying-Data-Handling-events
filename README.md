@@ -54,3 +54,48 @@ behind the scene angular compiles string interpolation into property binding
 
 `styles.css`
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+# class binding
+```html
+<button class="btn btn-danger" [class.active]='isActive'>Active Danger</button>
+```
+```ts
+  isActive=true;
+```
+# style binding
+variation of class binding very similar to class binding
+**Dom Style Objects**
+
+# Event binding
+```html
+<button (click)="onSave($event)" class="btn btn-secondary">Event trigger</button>
+```
+```ts
+  onSave($event){
+    console.log("clicked",$event);
+    
+  }
+  ```
+# Event Bubbling
+    <element>
+        <element>
+            <element>
+inside to outside (event bubbles up dom tree)
+to prevent second handler or second event 
+we use 
+    $event.stopPropagation();
+
+# Event filtering
+```html
+type :<input type="text" (keyup.enter)="onKeyUp()"/>
+```
+
+# template variables
+```html
+email :<input type="text" #email (keyup.enter)="onKeyUp(email.value)"/>
+```
+```js
+onKeyUp(email){
+    console.log(email)
+}
+```
