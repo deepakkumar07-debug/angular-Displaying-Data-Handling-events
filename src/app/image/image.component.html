@@ -16,4 +16,62 @@
 <br>
 type :<input type="text" (keyup.enter)="onKeyUp($event)"/>
 
-email :<input type="email" #email (keyup.enter)="onEmailChange(email.value)"/>
+<!-- email :<input type="email" #email (keyup.enter)="onEmailChange(email.value)"/> -->
+<br>
+Email field<input [value]="email" (keyup.enter)="email=$event.target.value; onEmailChange()"/> 
+
+Email field final <input [(ngModel)]="email" (keyup.enter)="onEmailChange()"/> 
+
+
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Rating</th>
+            <th>Students</th>
+            <th>Price</th>
+            <th>Release Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{course.title}}</td>
+            <td>{{course.rating}}</td>
+            <td>{{course.students}}</td>
+            <td>{{course.price}}</td>
+            <td>{{course.releaseDate}}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Rating</th>
+            <th>Students</th>
+            <th>Price</th>
+            <th>Release Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{course.title | uppercase | lowercase}}</td>
+            <!-- 1.2-2 (1 digit after dot 2 min 2 max) -->
+            <!-- if we use 2.1-1 we have leading zero -->
+            <td>{{course.rating | number: '1.2-2'}}</td>
+            <!-- make decimal point to separate every 3 digit using comma -->
+            <!-- called decimal pipe but keyword is number -->
+            <td>{{course.students | number}}</td>
+            <!-- currency format default usd  -->
+            <td>{{course.price | currency:'INR' : true :'3.2-2'}}</td>
+            <td>{{course.releaseDate | date:'dd/MM/y'}}</td>
+        </tr>
+    </tbody>
+</table>
+Title case:
+<input type="text" [(ngModel)]='title'>
+<br>
+{{title | titleCase}}

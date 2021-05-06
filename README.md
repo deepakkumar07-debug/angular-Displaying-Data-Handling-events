@@ -70,12 +70,13 @@ variation of class binding very similar to class binding
 ```html
 <button (click)="onSave($event)" class="btn btn-secondary">Event trigger</button>
 ```
+
 ```ts
   onSave($event){
     console.log("clicked",$event);
     
   }
-  ```
+```
 # Event Bubbling
     <element>
         <element>
@@ -99,3 +100,93 @@ onKeyUp(email){
     console.log(email)
 }
 ```
+# two way binding
+
+A component encapsulates data a logic and the html markup behind the view
+
+
+```js
+@Component({
+  selector: 'image',
+  template: `
+        one way binding
+        <input [value]="email" (keyup.enter)="onEmailChange()"/> 
+  `,//html template
+  styleUrls: ['./image.component.css']
+})
+export class ImageComponent{
+ email;//field used to encapsulate data
+
+//behaviour of logic behind the view
+ onEmailChange(){
+    console.log(this.email);
+  }
+}
+```
+## method 1 two way binding
+Email field<input [value]="email" (keyup.enter)="email=$event.target.value; onEmailChange()"/> 
+
+## method 2 
+ngmodel to implement 2 way binding another builtin directive
+banana in the box syntax
+
+import form module to use ngModel
+<input [(ngModel)]="email" (keyup.enter)="onEmailChange()"/> 
+
+# Pipes
+pipes to format data
+ - Uppercase
+ - Lowercase
+ - Decimal
+ - Currency
+ - Percent
+
+ to apply pipes use pipe operator | followed by name of the pipe
+ ```js
+  course ={
+    title:'Data Bindings in Angular',
+    rating:4.9745,
+    students:30123,
+    price:190.95,
+    releaseDate: new Date(2020,3,1)
+  }
+```
+
+
+```html
+ <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Rating</th>
+            <th>Students</th>
+            <th>Price</th>
+            <th>Release Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{course.title | uppercase | lowercase}}</td>
+            <!-- 1.2-2 (1 digit after dot 2 min 2 max) -->
+            <!-- if we use 2.1-1 we have leading zero -->
+            <td>{{course.rating | number: '1.2-2'}}</td>
+            <!-- make decimal point to separate every 3 digit using comma -->
+            <!-- called decimal pipe but keyword is number -->
+            <td>{{course.students | number}}</td>
+            <!-- currency format default usd  -->
+            <td>{{course.price | currency:'INR' : true :'3.2-2'}}</td>
+            <td>{{course.releaseDate | date:'dd/MM/y'}}</td>
+        </tr>
+    </tbody>
+</table>
+```
+ https://angular.io/api/common/DatePipe
+
+
+ # custom pipe
+
+
+ # title case
+generate pipe
+
+ ng g p title-case

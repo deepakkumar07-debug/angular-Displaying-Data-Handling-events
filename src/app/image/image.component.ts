@@ -6,10 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./image.component.css']
 })
 export class ImageComponent implements OnInit {
+  title:string;
+  course ={
+    title:'Data Bindings in Angular',
+    rating:4.9745,
+    students:30123,
+    price:190.95,
+    releaseDate: new Date(2020,3,1)
+  }
   imageUrl='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png';
   count=0;
   colSpan=2;
   isActive=true;
+  email='';//one way binding componnt to view
 
   increment (){
     return this.count++;
@@ -30,8 +39,8 @@ export class ImageComponent implements OnInit {
     $event.target.value='';
     
   }
-  onEmailChange(email){
-    console.log(email);
+  onEmailChange(){
+    console.log(this.email);
     
   }
   constructor() { }
