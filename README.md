@@ -48,3 +48,9 @@ behind the scene angular compiles string interpolation into property binding
     </tr>
 </table>
 ```
+# importing bootstrap
+
+`npm i bootstrap`
+
+`styles.css`
+@import '~bootstrap/dist/css/bootstrap.min.css';
