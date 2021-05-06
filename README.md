@@ -1,27 +1,50 @@
 # AngularDisplayingDataHandlingEvents
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.15.
+```ts
+import { Component, OnInit } from '@angular/core';
 
-## Development server
+@Component({
+  selector: 'image',
+  templateUrl: './image.component.html',
+  styleUrls: ['./image.component.css']
+})
+export class ImageComponent implements OnInit {
+  imageUrl='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png';
+  constructor() { }
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+  ngOnInit(): void {
+  }
 
-## Code scaffolding
+}
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```html
+<img src="{{imageUrl}}" alt="no image"/>
+```
+behind the scene angular compiles string interpolation into property binding 
 
-## Build
+- we bind property of dom element like src here to field or property in our component.ts
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- whether we use string interpolation or square bracket syntax
+- for textual value use string interpolation like head tags span div else use square bracket syntax
 
-## Running unit tests
+```html
+<h2 [textContent]='title'></h2>
+<h2>{{title}}</h2>
+<img src="{{imageUrl}}" alt="no image"/>
+<img [src]="imageUrl"/>
+```
+- use cleaner and shorter syntax
+ **property binding only works one way. From component to dom**
+ which means ts file property to html
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# attribute binding
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```html
+<table>
+    <tr>
+        <!-- error NG8002: Can't bind to 'colspan' since it isn't a known property of 'td'. -->
+        <td [attr.colspan]="colSpan">welcome</td>
+    </tr>
+</table>
+```
