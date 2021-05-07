@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-Displaying-Data-Handling-events';
+
+  post ={
+    title:"Title",
+    isFavorite:true
+  }
 }

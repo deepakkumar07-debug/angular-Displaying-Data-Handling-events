@@ -24,7 +24,7 @@ export class ImageComponent implements OnInit {
   increment (){
     return this.count++;
   }
-
+  
   onSave($event){
     console.log("clicked",$event);
     

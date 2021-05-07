@@ -228,3 +228,42 @@ we need to register in app module imports section
 generate pipe
 
  ng g p title-case
+
+ # Building reusable components
+
+ custom component needs input properties(state) and output properties to raise event from our custom component this called component api(public api)
+
+ example
+            <!-- input -->                    <!-- output -->
+ <favourite [isFavourite]="post.isFavourite" (change)="onFavChange">
+
+# two apprpoach to mark fields as input property
+
+approach 1
+importiung Input
+@Input() decorator
+- Its a built in decorator marking fileds and properties as input properties
+
+```ts
+import { Component, OnInit,Input } from '@angular/core';
+
+@Component({
+  selector: 'favorite',
+  templateUrl: './favorite.component.html',
+  styleUrls: ['./favorite.component.css'],
+  // inputs:['isFavorite'] another approach but bad practice if we change var name
+})
+export class FavoriteComponent implements OnInit {
+  //now this field is exposed to outside
+  @Input() isFavorite:boolean;
+  
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  toggleFav(){
+    this.isFavorite=!this.isFavorite;
+  }
+}
+```

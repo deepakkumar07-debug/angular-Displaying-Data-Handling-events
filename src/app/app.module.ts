@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { ImageComponent } from './image/image.component';
 import { TitleCasePipe } from './title-case.pipe';
 import { SummaryPipe } from './summary.pipe';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ImageComponent,
     TitleCasePipe,
-    SummaryPipe
+    SummaryPipe,
+    FavoriteComponent
   ],
   imports: [
     BrowserModule,
