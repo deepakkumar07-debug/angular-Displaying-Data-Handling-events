@@ -1,3 +1,5 @@
-<button class="btn btn-sm btn-primary bi bi-star-fill"
-[class.bi-star]="isFavorite" (click)="toggleFav()"></button>
+<button class="btn btn-sm btn-primary bi"
+[class.bi-star]="isSelected"
+[class.bi-star-fill]="!isSelected"
+(click)="toggleFav()"></button>
 <h1>hellll</h1>

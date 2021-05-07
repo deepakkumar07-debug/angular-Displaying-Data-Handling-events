@@ -267,3 +267,81 @@ export class FavoriteComponent implements OnInit {
   }
 }
 ```
+
+if we are building reusable component give an input properties an alias(nickname) to keep contract of our component stable
+
+```ts
+import { Component, OnInit,Input } from '@angular/core';
+
+@Component({
+  selector: 'favorite',
+  templateUrl: './favorite.component.html',
+  styleUrls: ['./favorite.component.css'],
+  // inputs:['isFavorite'] another approach but bad practice if we change var name
+})
+export class FavoriteComponent implements OnInit {
+  //now this field is exposed to outside
+  @Input('isFavorite') isSelected:boolean;//alias name 'isFavorite'
+  
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  toggleFav(){
+    this.isSelected=!this.isSelected;
+  }
+}
+```
+
+# output property
+```ts
+import { Component, OnInit,Input,Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'favorite',
+  templateUrl: './favorite.component.html',
+  styleUrls: ['./favorite.component.css'],
+  // inputs:['isFavorite'] another approach but bad practice if we change var name
+})
+export class FavoriteComponent implements OnInit {
+  //now this field is exposed to outside
+  @Input('isFavorite') isSelected:boolean;//alias name 'isFavorite'
+  @Output() change= new EventEmitter();//change is event name 
+  constructor() { }
+
+  ngOnInit(): void {
+  } 
+
+  toggleFav(){
+    this.isSelected=!this.isSelected;
+    this.change.emit();
+    // to raise or publishinh an event notifying others event triggered
+  }
+}
+```
+`app.component.ts`
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'angular-Displaying-Data-Handling-events';
+
+  post ={
+    title:"Title",
+    isFavorite:true
+  }
+
+  onFavoriteChanged(){
+    console.log('favorite changed');
+    
+  }
+}
+```
+
+# Passing event data
