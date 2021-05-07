@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImageComponent implements OnInit {
   title:string;
+  text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo id, neque odio expedita natus non ipsam. Vitae doloribus voluptatum iure blanditiis ad assumenda quae! Ratione maiores modi itaque aliquid quibusdam.'
   course ={
     title:'Data Bindings in Angular',
     rating:4.9745,

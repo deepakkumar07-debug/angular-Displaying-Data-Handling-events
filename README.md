@@ -184,8 +184,46 @@ pipes to format data
 
 
  # custom pipe
+ create a new files named summary.pipe.ts in app level
+https://angular.io/api/core/PipeTransform
+our custom class must have exact signature of the transform method
+ ```ts
+import { Pipe,PipeTransform } from "@angular/core";
+// Pipe decorator function
+// PipeTransform interface it defines the shape of our pipes
 
+@Pipe({
+    name:'summary'
+})
 
+export class SummaryPipe implements PipeTransform {
+    // transform(value: any, args?: any) { optional ?
+
+    // transform(value: any, ...args: any[]) {
+    transform(value: string, limit?: number) {
+        if(! value) return null;//empty str undefined
+        // throw new Error("Method not implemented.");
+        
+        let actualLimit=(limit) ? limit :50;
+        return value.substr(0,actualLimit)+'...';
+    }
+
+}
+ ```
+
+```html
+<br>
+some text: {{text}}
+<br><br>
+some text with summmary: {{text | summary}}
+<br><br>
+<br><br>
+some text with summmary limit: {{text | summary :10}}
+<br><br>
+```
+ERROR Error: The pipe 'summary' could not be found!
+
+we need to register in app module imports section
  # title case
 generate pipe
 

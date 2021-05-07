@@ -71,6 +71,14 @@ Email field final <input [(ngModel)]="email" (keyup.enter)="onEmailChange()"/>
         </tr>
     </tbody>
 </table>
+<br>
+some text: {{text}}
+<br><br>
+some text with summmary: {{text | summary}}
+<br><br>
+<br><br>
+some text with summmary limit: {{text | summary :10}}
+<br><br>
 Title case:
 <input type="text" [(ngModel)]='title'>
 <br>

@@ -7,9 +7,7 @@ export class TitleCasePipe implements PipeTransform {
 
   transform(value: string): unknown {
     if(! value) return null;
-
-   
-
+    
     let words=value.split(' ');//split by words
 
     for( var i=0;i<words.length;i++){
