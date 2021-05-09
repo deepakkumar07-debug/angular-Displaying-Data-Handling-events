@@ -345,3 +345,95 @@ export class AppComponent {
 ```
 
 # Passing event data
+when emiting event we can optionaly supply value this value will be accessed all subscribers of this event
+- here subscriber of change event is app component.ts(onFavoriteChanged())
+
+`favorite.component.ts`
+```js
+import { Component, OnInit,Input,Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'favorite',
+  templateUrl: './favorite.component.html',
+  styleUrls: ['./favorite.component.css'],
+  // inputs:['isFavorite'] another approach but bad practice if we change var name
+})
+export class FavoriteComponent implements OnInit {
+  //now this field is exposed to outside
+  @Input('isFavorite') isSelected:boolean;//alias name 'isFavorite'
+  @Output() change= new EventEmitter();//change is event name 
+  constructor() { }
+
+  ngOnInit(): void {
+  } 
+
+  toggleFav(){
+    this.isSelected=!this.isSelected;
+    // this.change.emit();
+    this.change.emit(this.isSelected);
+    // to raise or publishinh an event notifying others event triggered
+  }
+}
+```
+
+`app.componenet.ts`
+```js
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'angular-Displaying-Data-Handling-events';
+
+  post ={
+    title:"Title",
+    isFavorite:true
+  }
+
+  onFavoriteChanged(isFavorite){
+    console.log('favorite changed: ',isFavorite);
+    
+  }
+}
+```
+
+`app.component.html`
+
+```html
+<favorite [isFavorite]="post.isFavorite" (change)="onFavoriteChanged($event)"></favorite>
+<!--$event in here is our custom event value which is boolean value not an any event  -->
+```
+- we can also emit the value as a object
+
+```js
+toggleFav(){
+    this.isSelected=!this.isSelected;
+    // this.change.emit();
+    this.change.emit({newValue:this.isSelected});
+    // to raise or publishinh an event notifying others event triggered
+  }
+```
+`app.component.ts`
+
+```js
+import {FavoriteChangedEventArgs} from './favorite/favorite.component.ts';
+// onFavoriteChanged(eventArgs:{newValue:boolean}){
+//     console.log('favorite changed: ',eventArgs.newValue);
+    
+//   }
+//   or
+ onFavoriteChanged(eventArgs:FavoriteChangedEventArgs){
+    console.log('favorite changed: ',eventArgs.newValue);
+    
+  }
+```
+`favorite.comp.ts`
+
+```js
+export interface FavoriteChangedEventArgs{
+  newValue:boolean
+}
+```

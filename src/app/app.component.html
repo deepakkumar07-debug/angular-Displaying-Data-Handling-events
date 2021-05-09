@@ -1,5 +1,6 @@
 <h1>hello</h1>
 <image></image>
 <favorite></favorite>
-<favorite [isFavorite]="post.isFavorite" (change)="onFavoriteChanged()"></favorite>
+<!-- <favorite [isFavorite]="post.isFavorite" (change)="onFavoriteChanged()"></favorite> -->
+<favorite [isFavorite]="post.isFavorite" (change)="onFavoriteChanged($event)"></favorite>
 <!-- whenever favorite component raises change event -->

@@ -17,7 +17,8 @@ export class FavoriteComponent implements OnInit {
 
   toggleFav(){
     this.isSelected=!this.isSelected;
-    this.change.emit();
+    // this.change.emit();
+    this.change.emit(this.isSelected);
     // to raise or publishinh an event notifying others event triggered
   }
 }
