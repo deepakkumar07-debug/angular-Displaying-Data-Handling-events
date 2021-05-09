@@ -437,3 +437,59 @@ export interface FavoriteChangedEventArgs{
   newValue:boolean
 }
 ```
+# Aliasing output properties
+alias name and html input or output property name should be same
+when we rename the actual property doesnot affect the html property name
+- by aliasing them we keep our api of component stable 
+**example**
+here we renamed the change event to click event but we named alias as change so we dont need to change on component but event will be click event 
+`favorite.component.ts`
+```js
+import { Component, OnInit,Input,Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'favorite',
+  templateUrl: './favorite.component.html',
+  styleUrls: ['./favorite.component.css'],
+  // inputs:['isFavorite'] another approach but bad practice if we change var name
+})
+export class FavoriteComponent implements OnInit {
+  //now this field is exposed to outside
+  @Input('isFavorite') isSelected:boolean;//alias name 'isFavorite'
+  // @Output() change= new EventEmitter();//change is event name 
+  @Output('change') click= new EventEmitter();//change is event name 
+
+  constructor() { }
+
+  ngOnInit(): void {
+  } 
+
+  toggleFav(){
+    this.isSelected=!this.isSelected;
+    // this.change.emit();
+    this.change.emit(this.isSelected);
+    // to raise or publishinh an event notifying others event triggered
+  }
+}
+```
+
+`app.component.html`
+- now here change is alias name of click event 
+```html
+<favorite [isFavorite]="post.isFavorite" (change)="onFavoriteChanged($event)"></favorite>
+<!--$event in here is our custom event value which is boolean value not an any event  -->
+```
+
+# styles 
+styles can be applied in 3 different ways in angular
+
+`styleUrls:[]`
+styles:[
+  `.container{
+    color:red;
+  }`
+]
+
+- priority the one defined in last completely ignore the previous one
+- third approach is having style tag in component.html
+- if we defined style tag then this considered and completely ignore the previous ones(both styleUrls and styles)
