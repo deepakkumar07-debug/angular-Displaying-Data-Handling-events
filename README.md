@@ -490,6 +490,126 @@ styles:[
   }`
 ]
 
-- priority the one defined in last completely ignore the previous one
+- priority(scope) the one defined in last completely ignore the previous one
 - third approach is having style tag in component.html
 - if we defined style tag then this considered and completely ignore the previous ones(both styleUrls and styles)
+- styles applied to component are scoped to that component
+
+# View Encapsulation
+
+## shadow DOM
+Allows us to apply scoped styles to elements without bleeding out to the outer world
+- new feauture in modern browser old browser not support
+
+why shadow dom example
+```js
+var el=document.querySelector('favorite');
+
+el.innerHTML=`
+    <style>h1 {color:red}</style>
+    <h1>Hello</h1>
+`;
+
+```
+
+- problem is  the above style leaks outside of elements any h1 can be red in color
+
+solution is shadow dom
+```js
+var el=document.querySelector('favorite');
+
+var root=el.createShadowRoot();
+root.innerHTML=`
+    <style>h1 {color:red}</style>
+    <h1>Hello</h1>
+`;
+
+```
+- now by above approach scoped to that component only
+- to simulate them
+```js
+
+@Component({
+  selector: 'favorite',
+  templateUrl: './favorite.component.html',
+  styleUrls: ['./favorite.component.css'],
+  // inputs:['isFavorite'] another approach but bad practice if we change var name
+  // default one is Emulated it works by attaching 
+  encapsulation:ViewEncapsulation.Emulated
+  // encapsulation:ViewEncapsulation.Native
+  // encapsulation:ViewEncapsulation.None
+  // we dont have encapuslation when none
+})
+```
+- then inspect to see the changes in elements and its styles
+- default viewEncapsulation is Emulated. It emulates shadow dom  by attaching additional attribute to html element(css rule) i.e=> ngContent-c0
+
+# ngContent
+create bootstrap panel component
+when building reusable component prefix them selector 
+bootstrap-panel
+
+`panel.component.ts`
+```ts
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'bootstrap-panel',
+  templateUrl: './panel.component.html',
+  styleUrls: ['./panel.component.css']
+})
+export class PanelComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+```
+
+`panel.component.html`
+```html
+   <div class="card">
+     <!-- isnide > -->
+     <div class="card-header">
+     <!-- ng-content is placeholder to place some content at runtime(custom element e want to define) -->
+     <!-- we want to palce the content(element) having some class or id to distinguish them by css selectors  -->
+        <ng-content select=".heading"></ng-content>
+     </div>
+     <!-- next use + -->
+     <div class="card-body">
+        <ng-content select=".body"></ng-content>
+     </div>
+ </div>
+```
+`app.component.html`
+```html
+
+<!--custom component and reusable component. rendering elements at runtime  -->
+<bootstrap-panel>
+    <div class="heading">Heading</div>
+    <div class="body">
+        <h2>Body element</h2>
+        <p>Some content here...</p>
+    </div>
+</bootstrap-panel>
+```
+- **you dont need a selector if you have only one ng-content**
+- **But this approach has some problem to render a Heading text we used unwanted div with class heading**
+- there are time we just want to render text only or single text like in react we do as (<React.Fragment></React.Fragment><></>)
+- the same here we use <ng-container> this will render only the inside text not any ng container tag
+
+`app.component.html`
+```html
+
+<!--custom component and reusable component. rendering elements at runtime  -->
+<bootstrap-panel>
+    <ng-container class="heading">Heading</ng-container>
+    <div class="body">
+        <h2>Body element</h2>
+        <p>Some content here...</p>
+    </div>
+</bootstrap-panel>
+```

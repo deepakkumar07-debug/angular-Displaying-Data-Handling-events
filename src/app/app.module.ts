@@ -8,6 +8,8 @@ import { ImageComponent } from './image/image.component';
 import { TitleCasePipe } from './title-case.pipe';
 import { SummaryPipe } from './summary.pipe';
 import { FavoriteComponent } from './favorite/favorite.component';
+import { PanelComponent } from './panel/panel.component';
+import { LikeComponent } from './like/like.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { FavoriteComponent } from './favorite/favorite.component';
     ImageComponent,
     TitleCasePipe,
     SummaryPipe,
-    FavoriteComponent
+    FavoriteComponent,
+    PanelComponent,
+    LikeComponent
   ],
   imports: [
     BrowserModule,

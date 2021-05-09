@@ -1,0 +1,9 @@
+.bi-heart,.bi-heart-fill{
+    cursor: pointer;
+}
+.bi-heart{
+    color: #ccc;
+}
+.bi-heart-fill {
+    color: deeppink;
+}

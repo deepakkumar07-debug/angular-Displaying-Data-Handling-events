@@ -1,0 +1,12 @@
+ <div class="card">
+     <!-- isnide > -->
+     <div class="card-header">
+     <!-- ng-content is placeholder to place some content at runtime(custom element e want to define) -->
+     <!-- we want to palce the content(element) having some class or id to distinguish them by css selectors  -->
+        <ng-content select=".heading"></ng-content>
+     </div>
+     <!-- next use + -->
+     <div class="card-body">
+        <ng-content select=".body"></ng-content>
+     </div>
+ </div>

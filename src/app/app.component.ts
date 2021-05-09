@@ -8,6 +8,12 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'angular-Displaying-Data-Handling-events';
 
+  tweet = { 
+    body:'Here is the body of the Tweet...',
+    likesCount:10,
+    isLiked:true
+  }
+
   post ={
     title:"Title",
     isFavorite:true

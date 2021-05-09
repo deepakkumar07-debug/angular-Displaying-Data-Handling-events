@@ -4,3 +4,19 @@
 <!-- <favorite [isFavorite]="post.isFavorite" (change)="onFavoriteChanged()"></favorite> -->
 <favorite [isFavorite]="post.isFavorite" (change)="onFavoriteChanged($event)"></favorite>
 <!-- whenever favorite component raises change event -->
+
+<!-- <bootstrap-panel></bootstrap-panel> -->
+
+<!--custom component and reusable component. rendering elements at runtime  -->
+<bootstrap-panel>
+    <!-- <div class="heading">Heading</div> -->
+    <ng-container class="heading">Heading</ng-container>
+    <div class="body">
+        <h2>Body element</h2>
+        <p>Some content here...</p>
+    </div>
+</bootstrap-panel>
+<like
+    [likesCount]="tweet.likesCount"
+    [isActive]="tweet.isLiked"
+    ></like>
